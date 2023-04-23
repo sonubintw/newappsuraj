@@ -25,7 +25,7 @@ function Mainnewspage() {
 
   let zzz=undef()
 
-  // const [category,setCategory]=useState(zzz)
+//checking
   
 // console.log("from above ==========  "+ category)
   // const news = async () => {
