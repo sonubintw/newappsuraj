@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import NewItem from "./newItem"
-import "../components/loading.css"
 import { useParams } from 'react-router-dom'
 import LoadingBar from 'react-top-loading-bar'
 import red from "../components/load.gif" 
@@ -11,7 +10,6 @@ function Mainnewspage() {
   
   const [articles, setArticles] = useState([])
   const [page,setPage]=useState(1)//default page is 1 in api documention itself thats y
-  const [progress, setProgress] = useState(100)
   const [isdisable, setisdisable] = useState(true);
 
   let {id}=useParams()//getting paramaters from url
@@ -46,18 +44,22 @@ function Mainnewspage() {
   // }
 
   useEffect(()=>{
+    
     const news = async () => {
-      console.log(isdisable)
-      console.log(zzz)
+      // console.log(isdisable)
+      // console.log(zzz)
       let api = `https://newsapi.org/v2/top-headlines?category=${zzz}&country=in&apiKey=ee51a0a154af47149f653fc503cd7275&pageSize=6`
       // console.log(api)
-     
+      
       let data = await fetch(api)
+      
       let parsedData = await data.json()
+     
       let og1=parsedData.articles
  
       let filterData=og1.filter(elem=>elem.urlToImage!==null)
       setArticles(filterData)
+      
       // console.log(filterData)
   
     }
@@ -125,24 +127,38 @@ function Mainnewspage() {
   <>
   {/* <LoadingBar color="red" progress={progress} waitingTime={500} /> */}
 
-  <div className="grid grid-cols-3 gap-2">
-  <LoadingBar color="red" progress={progress} waitingTime={500} />
-    {articles.map((element) => {
-       return <div className="col-md-4" key={element.url}>
-              <NewItem title={element.title ? element.title : ""} description={element.description ? element.description : ""} imageUrl={element.urlToImage} newsUrl={element.url}  />
-           </div>
-        })}
-   
-        
-     </div>
-     <div className="flex justify-center">
-     <button onClick={moreNews}   className="bg-rose-700 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded">
-        More
-      </button>
-     </div>
-      <div className="flex justify-center">
-        <img  className="h-36 w-56" src={red} alt="loading" hidden={isdisable}/>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
+  <LoadingBar color="red" progress={100} waitingTime={500} />
+  {articles.map((element) => {
+    return (
+      <div className="col-md-4" key={element.url}>
+        <NewItem
+          title={element.title ? element.title : ""}
+          description={element.description ? element.description : ""}
+          imageUrl={element.urlToImage}
+          newsUrl={element.url}
+        />
       </div>
+    );
+  })}
+</div>
+<div className="flex justify-center my-4">
+  <button
+    onClick={moreNews}
+    className="bg-rose-700 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded"
+  >
+    More
+  </button>
+</div>
+<div className="flex justify-center my-4">
+  <img
+    className="h-36 w-56 -m-16"
+    src={red}
+    alt="loading"
+    hidden={isdisable}
+  />
+</div>
+
     </>
   )
 }

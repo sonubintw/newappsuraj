@@ -1,8 +1,8 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink,Link } from 'react-router-dom'
 import { useState } from "react"
 
-
+ 
 function Navbar(props) {
 
   
@@ -37,7 +37,7 @@ function Navbar(props) {
 <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
     <div>
         <div className="flex items-center justify-between py-3 md:py-5 md:block"> 
-             <NavLink to="/"> <h2 className="text-2xl font-bold text-white">NEWS Times</h2> </NavLink>   
+             <Link to="/"> <h2 className="text-2xl font-bold text-white">NEWS Times</h2> </Link>   
             <div className="md:hidden">
                 <button
                     className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
